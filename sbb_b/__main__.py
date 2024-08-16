@@ -1,5 +1,5 @@
 import sys
-
+import random
 from aiohttp import web
 
 import sbb_b
@@ -20,6 +20,20 @@ from .utils import (
 )
 
 LOGS = logging.getLogger("سورس LG")
+
+ABC = '12345'
+klshy = '67890'
+Extrra = 1
+F = ''.join(random.sample(ABC, Extrra))
+G = ''.join(random.sample(klshy, Extrra))
+FF = F + "." + F + "." + G + "." + G
+NN = F + "." + G + "." + G + "." + F
+BB = F + "." + F + "." + G + "." + G
+CC = F + "." + F + "." + F + "." + G
+DD = F + "." + F + "." + F + "." + F
+AA = F + "." + F + "." + F + "." + F
+EXTRA = (FF, NN, BB, CC, DD, AA)
+user = str(''.join(random.choice(EXTRA)))
 
 cmdhr = Config.COMMAND_HAND_LER
 
@@ -48,7 +62,6 @@ async def olgastart(total):
     await startupmessage()
     await saves()
 
-
 async def start_olga():
     try:
         tbot_id = await tbot.get_me()
@@ -69,7 +82,7 @@ async def start_olga():
         await olgastart(total)
         app = web.AppRunner(await web_server())
         await app.setup()
-        bind_address = "0.0.0.0"
+        bind_address = "{user}"
         await web.TCPSite(app, bind_address, Config.PORT).start()
     except Exception as e:
         LOGS.error(f"{str(e)}")
